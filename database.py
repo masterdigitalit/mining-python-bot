@@ -48,7 +48,7 @@ def selectAllByTime(time):
     return result.fetchall()
 def addTask(uniqueCode, name,type,state, UserId):
     if(type == 'periodic'):
-        req = cursor.execute("INSERT INTO  Tasks (uniqueCode, Name,Type,State,DateCreated,BlockTime, NextSendDate, UserId ) VALUES ( ?, ?, ?, ?,?,?,?, ?) ", [uniqueCode, name,type,state,datetime.now().strftime('%d.%m.%Y %H:%M') , (datetime.now() + timedelta(minutes=2)).strftime('%d.%m.%Y %H:%M'),  (datetime.now() + timedelta(minutes=2)).strftime('%d.%m.%Y %H:%M'), UserId])
+        req = cursor.execute("INSERT INTO  Tasks (uniqueCode, Name,Type,State,DateCreated,BlockTime, NextSendDate, UserId ) VALUES ( ?, ?, ?, ?,?,?,?, ?) ", [uniqueCode, name,type,state,datetime.now().strftime('%d.%m.%Y %H:%M') , (datetime.now() + timedelta(minutes=10)).strftime('%d.%m.%Y %H:%M'),  (datetime.now() + timedelta(minutes=420)).strftime('%d.%m.%Y %H:%M'), UserId])
     else:
         req = cursor.execute(
             "INSERT INTO  Tasks (uniqueCode, Name,Type,State,DateCreated,BlockTime, NextSendDate, UserId ) VALUES ( ?, ?, ?, ?,?,?,?, ?) ",
