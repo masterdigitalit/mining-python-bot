@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+/.idea
+/.eggs
+/apscheduler-3.x
+/Lib
+/Scripts
+/__pycache__
