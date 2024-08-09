@@ -12,7 +12,7 @@ async def confirmationBtn(callback_query: CallbackQuery):
         if getTaskState(callback_query.data[20:]) == 'not-activated':
 
             changeConfirmationState(callback_query.data[20:], 'activated')
-            # await bot.delete_message(callback_query.from_user.id,callback_query.message.message_id)
+            await bot.delete_message(callback_query.from_user.id,callback_query.message.message_id)
     except Exception as e:
         await adminNotification(e, __name__)
 async def registrationBtn(callback_query: CallbackQuery):
