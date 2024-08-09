@@ -40,21 +40,27 @@ def getTaskState(uniqueCode):
 # print(getTaskState('ejbfueuFBEUBUWufeuUWEIU'))
 
 def getAllUsersId():
-    result = cursor.execute("SELECT * FROM Users")
+    result = cursor.execute("SELECT userId FROM Users")
     return result.fetchall()
-
+def addUser(userId, Name, Surname):
+    cursor.execute("INSERT INTO Users (userId, Name, Surname, registrationDate, Level) VALUES (?,?,?,?, ?)", [userId, Name, Surname, (datetime.now()).strftime('%d.%m.%Y %H:%M'), 'user'])
+    con.commit()
+def isUserExist(userId):
+    result = cursor.execute("SELECT * FROM Users WHERE userId = ?", [userId])
+    return result.fetchall()
 def selectAllByTime(time):
     result = cursor.execute("SELECT * FROM Tasks WHERE NextSendDate = ?", [time])
     return result.fetchall()
-def addTask(uniqueCode, name,type,state, UserId):
+def addTask(uniqueCode, name,type,state, UserId, nextSendTime):
     if(type == 'periodic'):
-        req = cursor.execute("INSERT INTO  Tasks (uniqueCode, Name,Type,State,DateCreated,BlockTime, NextSendDate, UserId ) VALUES ( ?, ?, ?, ?,?,?,?, ?) ", [uniqueCode, name,type,state,datetime.now().strftime('%d.%m.%Y %H:%M') , (datetime.now() + timedelta(minutes=10)).strftime('%d.%m.%Y %H:%M'),  (datetime.now() + timedelta(minutes=420)).strftime('%d.%m.%Y %H:%M'), UserId])
+        req = cursor.execute("INSERT INTO  Tasks (uniqueCode, Name,Type,State,DateCreated,BlockTime, NextSendDate, UserId ) VALUES ( ?, ?, ?, ?,?,?,?, ?) ", [uniqueCode, name,type,state,datetime.now().strftime('%d.%m.%Y %H:%M') , (datetime.now() + timedelta(minutes=10)).strftime('%d.%m.%Y %H:%M'),  (datetime.now() + timedelta(minutes=nextSendTime)).strftime('%d.%m.%Y %H:%M'), UserId])
     else:
         req = cursor.execute(
             "INSERT INTO  Tasks (uniqueCode, Name,Type,State,DateCreated,BlockTime, NextSendDate, UserId ) VALUES ( ?, ?, ?, ?,?,?,?, ?) ",
             [uniqueCode, name, type, state, datetime.now().strftime('%d.%m.%Y %H:%M'),
              (datetime.now() + timedelta(minutes=10)).strftime('%d.%m.%Y %H:%M'),
-             None, UserId])
+             (datetime.now() + timedelta(minutes=20)).strftime('%d.%m.%Y %H:%M'),
+             UserId])
 
 
     con.commit()
@@ -67,3 +73,5 @@ def deleteNull():
 # addTask('ejbfueuFBEUBUWufeuUWEIU', 'blum', 'daily', 'not-activated', '76374885385')
 
 # print(selectAllByTime('07.08.2024 19:48'))
+
+

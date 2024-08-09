@@ -19,18 +19,19 @@ async def send_periodic_confirmation(bot: Bot ):
 
     for i in tasks:
         if(i[3] == 'periodic'):
-
-
-            # Filter python objects with list comprehensions
-
-
-
-
             uniqueCode = uuid.uuid4()
             output_json =  [x for x in listOfTemky if x['name'] == i[2]]
 
-            addTask(f'{uniqueCode}', output_json[0]['name'], 'periodic', 'not-activated', i[8])
-            await bot.send_message(i[8], text=output_json[0]['link'], reply_markup=confirmationButton(uniqueCode, 'подтвердить'))
+            addTask(f'{uniqueCode}', output_json[0]['name'], 'periodic', 'not-activated', i[8], times[output_json[0]['name']]['periodic'] )
+            await bot.send_message(i[8], text=f"забери временную награду в {output_json[0]['name']} \n {output_json[0]['link']}", reply_markup=confirmationButton(uniqueCode, 'подтвердить'))
+        else:
+            uniqueCode = uuid.uuid4()
+            output_json = [x for x in listOfTemky if x['name'] == i[2]]
+
+            addTask(f'{uniqueCode}', output_json[0]['name'], 'daily', 'not-activated', i[8],
+                   None)
+            await bot.send_message(i[8], text=f'ежедневка в {output_json[0]["name"]}\n {output_json[0]["link"]}',
+                                   reply_markup=confirmationButton(uniqueCode, 'подтвердить'))
 
 
 async def hamster_daily_notification(bot:Bot):

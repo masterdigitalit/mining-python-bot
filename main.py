@@ -2,9 +2,10 @@
 from aiogram.utils import executor
 from create_bot import dp, bot
 from handlers import confirmationButton, client
-from notification import send_message_to_admin, send_periodic_confirmation,hamster_daily_notification
+from notification import  send_periodic_confirmation,hamster_daily_notification
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from newsletter import dailyNewsletter
+
 from datetime import datetime
 
 
@@ -13,7 +14,6 @@ confirmationButton.callbackQueryHandler(dp)
 
 
 def telegram():
-    print()
 
     scheduler = AsyncIOScheduler(timizone='Europe/Moscow')
     scheduler.add_job(send_periodic_confirmation, trigger='interval', seconds=60, kwargs={'bot': bot} )
