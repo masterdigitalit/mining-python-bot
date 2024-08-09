@@ -10,9 +10,9 @@ listOfTemky = [
     {'name': 'blum', 'link': 'https://t.me/BlumCryptoBot/app?startapp=to_home', 'daily': True},
     {'name': 'BullApp', 'link':'https://t.me/BullApp_bot?start=822611494_3347', 'daily': True}
     # {'name': 'tapswap', 'link': 'https://t.me/tapswap_mirror_1_bot'},
-
-
 ]
+
+
 times = {
     'hamster combat':{'periodic':None,'daily':{'type':'by-time'}},
     'BullApp': {'periodic':10},

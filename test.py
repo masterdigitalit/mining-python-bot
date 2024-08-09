@@ -51,4 +51,23 @@ from datetime import datetime, timedelta
 from config import admins, times, listOfTemky
 
 
-print((datetime.now() + timedelta(minutes=-20)).strftime('%d.%m.%Y %H:%M'))
+#print((datetime.now() + timedelta(minutes=-20)).strftime('%d.%m.%Y %H:%M'))
+#
+# print(datetime.now().strftime('%d.%m.%Y %H:%M'))
+# from dotenv import load_dotenv
+# env = load_dotenv('.env')
+# print(load_dotenv.main)
+
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from the .env file
+load_dotenv()
+
+# Access environment variables
+database_url = os.getenv("DATABASE_URL")
+api_key = os.getenv("API_KEY")
+
+# Now you can use these variables in your script
+print(f"Database URL: {database_url}")
+print(f"API Key: {api_key}")
